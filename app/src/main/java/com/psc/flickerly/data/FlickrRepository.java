@@ -1,5 +1,6 @@
 package com.psc.flickerly.data;
 
+import com.psc.flickerly.Config;
 import com.psc.flickerly.data.mapper.PhotosMapper;
 import com.psc.flickerly.data.network.FlickrApi;
 import com.psc.flickerly.domain.Repository;
@@ -10,9 +11,6 @@ import java.util.List;
 import io.reactivex.Observable;
 
 public class FlickrRepository implements Repository {
-    private static final String API_KEY = "3e7cc266ae2b0e0d78e279ce8e361736";
-    private static final String JSON = "json";
-    private static final String NO_JSON_CALLBACK = "1";
     private final PhotosMapper photosMapper;
     private final SchedulerProvider schedulerProvider;
     private FlickrApi api;
@@ -26,7 +24,7 @@ public class FlickrRepository implements Repository {
 
     @Override
     public Observable<List<PhotoInfo>> getRecentPhotos(final int pageSize, final int page) {
-        return api.getRecentPhotos(pageSize, page, API_KEY, JSON, NO_JSON_CALLBACK)
+        return api.getRecentPhotos(pageSize, page, Config.API_KEY, Config.JSON, Config.NO_JSON_CALLBACK)
                   .map(photosMapper::getPhotosList)
                   .map(photosMapper::map)
                   .subscribeOn(schedulerProvider.getIoScheduler())
@@ -35,7 +33,7 @@ public class FlickrRepository implements Repository {
 
     @Override
     public Observable<List<PhotoInfo>> searchPhotos(final int pageSize, final int page, final String text) {
-        return api.searchPhotos(pageSize, page, text, API_KEY, JSON, NO_JSON_CALLBACK)
+        return api.searchPhotos(pageSize, page, text, Config.API_KEY, Config.JSON, Config.NO_JSON_CALLBACK)
                   .map(photosMapper::getPhotosList)
                   .map(photosMapper::map)
                   .subscribeOn(schedulerProvider.getIoScheduler())

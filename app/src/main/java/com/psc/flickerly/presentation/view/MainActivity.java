@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.psc.flickerly.Config;
 import com.psc.flickerly.R;
 import com.psc.flickerly.domain.model.PhotoInfo;
 import com.psc.flickerly.presentation.presenter.GalleryPresenter;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity<GalleryPresenter, GalleryView> implements GalleryView {
 
-    private static final int GRID_COLUMN_NUMBER = 3;
+    private static final int LOADER_ID = 0x007;
     private EditText searchEditText;
     private ImageAdapter adapter;
     private GalleryPresenter presenter;
@@ -56,7 +57,7 @@ public class MainActivity extends BaseActivity<GalleryPresenter, GalleryView> im
 
     private void setupRecyclerView() {
         adapter = new ImageAdapter();
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, GRID_COLUMN_NUMBER);
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, Config.GRID_COLUMN_NUMBER);
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity<GalleryPresenter, GalleryView> im
 
     @Override
     protected int getLoaderId() {
-        return 0x007;
+        return LOADER_ID;
     }
 
     public void setGalleryData(final List<PhotoInfo> list) {

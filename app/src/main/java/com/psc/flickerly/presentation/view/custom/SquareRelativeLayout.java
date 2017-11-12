@@ -17,9 +17,9 @@ public class SquareRelativeLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // the trick goes here
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 }

@@ -1,9 +1,9 @@
 package com.psc.flickerly.presentation.model;
 
+import com.psc.flickerly.Config;
 import com.psc.flickerly.domain.usecase.SearchPhotosUseCase;
 
 public class SearchDataHolder {
-    private static final int PAGE_SIZE = 12;
 
     private String searchText;
     private int currentPageNumber = Integer.MIN_VALUE;
@@ -20,7 +20,7 @@ public class SearchDataHolder {
             throw new IllegalStateException("setNewQuery() not called.");
         }
         currentPageNumber++;
-        return new SearchPhotosUseCase.Param(PAGE_SIZE, currentPageNumber, searchText);
+        return new SearchPhotosUseCase.Param(Config.REQUEST_PAGE_SIZE, currentPageNumber, searchText);
     }
 
     public boolean noResultReceived() {
